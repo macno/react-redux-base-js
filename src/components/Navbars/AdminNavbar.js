@@ -197,7 +197,7 @@ function Header() {
                 className="m-0"
                 href="/accounts/logout"
               >
-                <span className="no-icon">Log out</span>
+                <span className="no-icon">Logout</span>
               </Nav.Link>
             </Nav.Item>
           </Nav>
