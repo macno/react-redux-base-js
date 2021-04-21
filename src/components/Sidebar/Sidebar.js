@@ -59,7 +59,7 @@ function Sidebar({ color, image, routes }) {
                 <li
                   className={
                     prop.upgrade
-                      ? "active active-pro"
+                      ? "active-pro"
                       : activeRoute(prop.layout + prop.path)
                   }
                   key={key}
