@@ -26,20 +26,19 @@ class Footer extends Component {
           <nav>
             <ul className="footer-menu">
               <li>
-                <a href="/admin/dashboard" >
+                <a href="/admin/home" >
                   Home
                 </a>
               </li>
               <li>
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                <a href="https://www.smartlis.com">
                   Company
                 </a>
               </li>
             </ul>
             <p className="copyright text-center">
               © {new Date().getFullYear()}{" "}
-              Paolo, made with
-              love for a better web
+              PMO
             </p>
           </nav>
         </Container>

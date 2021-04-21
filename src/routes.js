@@ -28,7 +28,7 @@ const dashboardRoutes = [
   {
     path: "/home",
     name: "Home",
-    icon: "nc-icon nc-chart-pie-35",
+    icon: "nc-icon nc-bank",
     component: Dashboard,
     layout: "/admin",
   },
