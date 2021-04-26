@@ -26,26 +26,26 @@ import Upgrade from "views/Upgrade.js";
 
 const dashboardRoutes = [
   {
-    path: "/home",
+    path: "home",
     name: "Home",
     icon: "nc-icon nc-bank",
     component: Dashboard,
-    layout: "/admin",
+    layout: "/",
   },
   {
-    path: "/table",
+    path: "table",
     name: "Table List",
     icon: "nc-icon nc-notes",
     component: TableList,
-    layout: "/admin",
+    layout: "/",
   },
   {
     upgrade: true,
-    path: "/user",
+    path: "user",
     name: "User Profile",
     icon: "nc-icon nc-circle-09",
     component: UserProfile,
-    layout: "/admin",
+    layout: "/",
   }
 ];
 

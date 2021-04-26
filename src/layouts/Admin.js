@@ -26,6 +26,8 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 import routes from "routes.js";
 
 import sidebarImage from "assets/img/sidebar-3.jpg";
+import { getUser } from '../features/user/userSlice';
+import { useDispatch } from 'react-redux';
 
 function Admin() {
   const [image, setImage] = React.useState(sidebarImage);
@@ -35,7 +37,7 @@ function Admin() {
   const mainPanel = React.useRef(null);
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
+      if (prop.layout === "/") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -61,6 +63,8 @@ function Admin() {
       element.parentNode.removeChild(element);
     }
   }, [location]);
+  const dispatch = useDispatch();
+  dispatch(getUser())
   return (
     <>
       <div className="wrapper">
