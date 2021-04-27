@@ -9,9 +9,6 @@ export function User() {
 
   const currentUser = useSelector(selectUser);
 
-  if (!currentUser.authorized)
-    window.location.assign('/accounts/login/')
-
   return (
     <div>
       <Nav.Item>

@@ -7,7 +7,7 @@ const initialState = {
     last_name: '-'
   },
   status: 'idle',
-  authorized: true
+  lastError: ""
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -18,9 +18,13 @@ const initialState = {
 export const getUser = createAsyncThunk(
   'user/fetchUser',
   async () => {
-    const response = await fetchUser();
-    // The value we return becomes the `fulfilled` action payload
-    return response.data.data;
+    try {
+      const response = await fetchUser();
+      return response.data.data;
+    } catch (error) {
+      console.error(`TryCatchError: ${JSON.stringify(error)}`)
+      throw new Error(error.message)
+    }
   }
 );
 
@@ -52,12 +56,7 @@ export const userSlice = createSlice({
       .addCase(getUser.rejected, (state, { payload, error }) => {
         console.error('Extra reducer error: ' + JSON.stringify(error));
         state.status = 'idle';
-        if (error.message.toLowerCase().includes('401') ||
-            error.message.toLowerCase().includes('403') ||
-            error.message.toLowerCase().includes('forbidden') ||
-            error.message.toLowerCase().includes('unauthorized')) {
-              state.authorized = false;
-            }
+        state.lastError = error.message;
       });
   },
 });
