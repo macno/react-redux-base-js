@@ -9,6 +9,9 @@ export function User() {
 
   const currentUser = useSelector(selectUser);
 
+  if (!currentUser.authorized)
+    window.location.assign('/accounts/login/')
+
   return (
     <div>
       <Nav.Item>
@@ -17,7 +20,7 @@ export function User() {
           href="#pablo"
           onClick={(e) => e.preventDefault()}
         >
-          <span className="no-icon">{currentUser.first_name + ' ' + currentUser.last_name}</span>
+          <span className="no-icon">{currentUser.data.first_name} {currentUser.data.last_name}</span>
         </Nav.Link>
       </Nav.Item>
     </div>
