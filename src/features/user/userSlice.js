@@ -22,7 +22,6 @@ export const getUser = createAsyncThunk(
       const response = await fetchUser();
       return response.data.data;
     } catch (error) {
-      console.error(`TryCatchError: ${JSON.stringify(error)}`)
       throw new Error(error.message)
     }
   }
@@ -48,13 +47,14 @@ export const userSlice = createSlice({
     builder
       .addCase(getUser.pending, (state) => {
         state.status = 'loading';
+        state.lastError = '';
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.status = 'idle';
         state.data = action.payload;
+        state.lastError = '';
       })
       .addCase(getUser.rejected, (state, { payload, error }) => {
-        console.error('Extra reducer error: ' + JSON.stringify(error));
         state.status = 'idle';
         state.lastError = error.message;
       });
