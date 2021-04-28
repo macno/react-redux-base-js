@@ -9,15 +9,7 @@ export function UserComponent() {
 
   const currentUser = useSelector(selectUser);
   const notificationAlertRef = React.useRef(null);
-  const _user = new User(currentUser.data.id, 
-        currentUser.data.first_name, 
-        currentUser.data.last_name, 
-        currentUser.data.username, 
-        currentUser.data.email, 
-        currentUser.data.last_login, 
-        currentUser.data.is_staff,
-        currentUser.data.is_active,
-        currentUser.data.is_superuser)
+  const _user = new User(currentUser.data)
 
   React.useEffect(() => {
 

@@ -2,7 +2,18 @@ import { capitalize } from '../app/utils'
 
 class User {
 
-    constructor(id, first_name, last_name, username, email, last_login, is_staff, is_active, is_superuser) {
+  constructor(id, first_name, last_name, username, email, last_login, is_staff, is_active, is_superuser) {
+    if (!arguments.first_name) {
+      this._id = id.id
+      this._first_name = id.first_name;
+      this._last_name = id.last_name;
+      this._username = id.username;
+      this._email = id.email;
+      this._last_login = id.last_login;
+      this._is_staff = id.is_staff;
+      this._is_active = id.is_active;
+      this._is_superuser = id.is_superuser;      
+    } else {
       this._id = id
       this._first_name = first_name;
       this._last_name = last_name;
@@ -13,47 +24,48 @@ class User {
       this._is_active = is_active;
       this._is_superuser = is_superuser;
     }
-
-    get name() {
-        return capitalize(this._first_name) + ' ' + capitalize(this._last_name);
-    }
-    
-    get id() {
-      return this._id;
-    }
-
-    get first_name() {
-      return this._first_name;
-    }
-
-    get last_name() {
-      return this._last_name;
-    }
-    
-    get username() {
-      return this._username;
-    } 
-    
-    get email() {
-      return this._email;
-    }
-    
-    get last_login() {
-      return this._last_login;
-    } 
-    
-    get is_staff() {
-      return this._is_staff;
-    } 
-    
-    get is_active() {
-      return this._is_active;
-    } 
-    
-    get is_superuser() {
-      return this._is_superuser;
-    }
-    
   }
 
-  export default User;
+  get name() {
+    return capitalize(this._first_name) + ' ' + capitalize(this._last_name);
+  }
+
+  get id() {
+    return this._id;
+  }
+
+  get first_name() {
+    return this._first_name;
+  }
+
+  get last_name() {
+    return this._last_name;
+  }
+
+  get username() {
+    return this._username;
+  }
+
+  get email() {
+    return this._email;
+  }
+
+  get last_login() {
+    return this._last_login;
+  }
+
+  get is_staff() {
+    return this._is_staff;
+  }
+
+  get is_active() {
+    return this._is_active;
+  }
+
+  get is_superuser() {
+    return this._is_superuser;
+  }
+
+}
+
+export default User;
