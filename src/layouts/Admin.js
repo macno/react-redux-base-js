@@ -21,7 +21,6 @@ import { useLocation, Route, Switch } from "react-router-dom";
 import AdminNavbar from "components/Navbars/AdminNavbar";
 import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
 
@@ -50,6 +49,8 @@ function Admin() {
       }
     });
   };
+  const dispatch = useDispatch();
+
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -62,9 +63,9 @@ function Admin() {
       var element = document.getElementById("bodyClick");
       element.parentNode.removeChild(element);
     }
+    dispatch(getUser())
   }, [location]);
-  const dispatch = useDispatch();
-  dispatch(getUser())
+
   return (
     <>
       <div className="wrapper">
