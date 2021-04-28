@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { User } from './user';
 import { fetchUser } from './userAPI';
 
 const initialState = {
@@ -20,7 +21,17 @@ export const getUser = createAsyncThunk(
   async () => {
     try {
       const response = await fetchUser();
-      return response.data.data;
+      const data = response.data.data
+      _user = new User(data.id, 
+        data.first_name, 
+        data.last_name, 
+        data.username, 
+        data.email, 
+        data.last_login, 
+        data.is_staff,
+        data.is_active,
+        data.is_superuser)
+      return _user;
     } catch (error) {
       throw new Error(error.message)
     }

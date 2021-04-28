@@ -20,6 +20,7 @@ export function User() {
         icon: null
       };
       notificationAlertRef.current.notificationAlert(options);
+      console.error(options.message)
     }
   }, [currentUser]);
 
@@ -31,7 +32,7 @@ export function User() {
           href="#pablo"
           onClick={(e) => e.preventDefault()}
         >
-          <span className="no-icon">{currentUser.data.first_name} {currentUser.data.last_name}</span>
+          <span className="no-icon">{currentUser.name}</span>
         </Nav.Link>
       </Nav.Item>
       <Notify ref={notificationAlertRef} />
