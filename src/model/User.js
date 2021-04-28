@@ -15,7 +15,7 @@ class User {
     }
 
     get name() {
-        return `${capitalize(this._first_name)} ${capitalize(this._last_name)}`;
+        return capitalize(this._first_name) + ' ' + capitalize(this._last_name);
     }
     
     get id() {
@@ -55,3 +55,5 @@ class User {
     }
     
   }
+
+  export default User;

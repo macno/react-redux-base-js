@@ -20,7 +20,7 @@ import { useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
 
 import routes from "routes.js";
-import { User } from "features/user/user";
+import { UserComponent } from "features/user/user";
 
 function Header() {
   const location = useLocation();
@@ -72,7 +72,7 @@ function Header() {
           <Nav className="nav mr-auto" navbar>
           </Nav>
           <Nav className="ml-auto" navbar>
-            <User />
+            <UserComponent />
             <Nav.Item>
               <Nav.Link
                 className="m-0"
