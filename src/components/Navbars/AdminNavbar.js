@@ -72,7 +72,14 @@ function Header() {
           <Nav className="nav mr-auto" navbar>
           </Nav>
           <Nav className="ml-auto" navbar>
+          <Nav.Item>
+              <Nav.Link
+                className="m-0"
+                href="/accounts/logout"
+              >
             <UserComponent />
+              </Nav.Link>
+            </Nav.Item>
             <Nav.Item>
               <Nav.Link
                 className="m-0"

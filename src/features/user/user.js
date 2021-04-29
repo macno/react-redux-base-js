@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Nav } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { selectUser } from './userSlice';
 import Notify from 'react-notification-alert';
@@ -27,17 +28,13 @@ export function UserComponent() {
   }, [currentUser]);
 
   return (
-    <div>
-      <Nav.Item>
-        <Nav.Link
-          className="m-0"
-          href="#pablo"
-          onClick={(e) => e.preventDefault()}
-        >
-          <span className="no-icon">{_user.name}</span>
-        </Nav.Link>
-      </Nav.Item>
+    <>
+      <NavLink
+        className="m-0"
+        to={"/user"}
+      ><span className="no-icon">{_user.name}</span>
+      </NavLink>
       <Notify ref={notificationAlertRef} />
-    </div>
+    </>
   );
 };
