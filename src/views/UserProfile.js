@@ -1,4 +1,8 @@
 import React from "react";
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/user/userSlice';
+import moment from 'moment'
+import User from '../model/User'
 
 // react-bootstrap components
 import {
@@ -6,14 +10,15 @@ import {
   Button,
   Card,
   Form,
-  Navbar,
-  Nav,
   Container,
   Row,
   Col,
 } from "react-bootstrap";
 
-function User() {
+function UserProfile() {
+
+  const _user = useSelector(selectUser);
+  const __user = new User(_user.data)
   return (
     <>
       <Container fluid>
@@ -26,33 +31,35 @@ function User() {
               <Card.Body>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
+                    <Col className="pr-1" md="2">
                       <Form.Group>
-                        <label>Company (disabled)</label>
+                        <label>Id</label>
                         <Form.Control
-                          defaultValue="Creative Code Inc."
+                          defaultValue={__user.id}
                           disabled
-                          placeholder="Company"
+                          placeholder="Id"
                           type="text"
-                        ></Form.Control>
+                        >
+                        </Form.Control>
                       </Form.Group>
                     </Col>
                     <Col className="px-1" md="3">
                       <Form.Group>
                         <label>Username</label>
                         <Form.Control
-                          defaultValue="michael23"
+                          defaultValue={__user.username}
                           placeholder="Username"
                           type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="pl-1" md="4">
+                    <Col className="pl-1" md="7">
                       <Form.Group>
                         <label htmlFor="exampleInputEmail1">
                           Email address
-                        </label>
+                                        </label>
                         <Form.Control
+                          defaultValue={__user.email}
                           placeholder="Email"
                           type="email"
                         ></Form.Control>
@@ -64,7 +71,7 @@ function User() {
                       <Form.Group>
                         <label>First Name</label>
                         <Form.Control
-                          defaultValue="Mike"
+                          defaultValue={__user.first_name}
                           placeholder="Company"
                           type="text"
                         ></Form.Control>
@@ -74,7 +81,7 @@ function User() {
                       <Form.Group>
                         <label>Last Name</label>
                         <Form.Control
-                          defaultValue="Andrew"
+                          defaultValue={__user.last_name}
                           placeholder="Last Name"
                           type="text"
                         ></Form.Control>
@@ -84,10 +91,11 @@ function User() {
                   <Row>
                     <Col md="12">
                       <Form.Group>
-                        <label>Address</label>
+                        <label>Last login</label>
                         <Form.Control
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
+                          defaultValue={moment(__user.last_login).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+                          disabled
+                          placeholder="Last login"
                           type="text"
                         ></Form.Control>
                       </Form.Group>
@@ -96,46 +104,44 @@ function User() {
                   <Row>
                     <Col className="pr-1" md="4">
                       <Form.Group>
-                        <label>City</label>
-                        <Form.Control
-                          defaultValue="Mike"
-                          placeholder="City"
-                          type="text"
-                        ></Form.Control>
+                        <Form.Check className="mb-1 pl-0">
+                          <Form.Check.Label>
+                            <Form.Check.Input
+                              defaultChecked={__user.is_active}
+                              type="checkbox"
+                            ></Form.Check.Input>
+                            <span className="form-check-sign"></span>
+                                            Active
+                                        </Form.Check.Label>
+                        </Form.Check>
                       </Form.Group>
                     </Col>
                     <Col className="px-1" md="4">
                       <Form.Group>
-                        <label>Country</label>
-                        <Form.Control
-                          defaultValue="Andrew"
-                          placeholder="Country"
-                          type="text"
-                        ></Form.Control>
+                        <Form.Check className="mb-1 pl-0">
+                          <Form.Check.Label>
+                            <Form.Check.Input
+                              defaultChecked={__user.is_staff}
+                              type="checkbox"
+                            ></Form.Check.Input>
+                            <span className="form-check-sign"></span>
+                                            Staff
+                                        </Form.Check.Label>
+                        </Form.Check>
                       </Form.Group>
                     </Col>
                     <Col className="pl-1" md="4">
                       <Form.Group>
-                        <label>Postal Code</label>
-                        <Form.Control
-                          placeholder="ZIP Code"
-                          type="number"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="12">
-                      <Form.Group>
-                        <label>About Me</label>
-                        <Form.Control
-                          cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                          that two seat Lambo."
-                          placeholder="Here can be your description"
-                          rows="4"
-                          as="textarea"
-                        ></Form.Control>
+                        <Form.Check className="mb-1 pl-0">
+                          <Form.Check.Label>
+                            <Form.Check.Input
+                              defaultChecked={__user.is_superuser}
+                              type="checkbox"
+                            ></Form.Check.Input>
+                            <span className="form-check-sign"></span>
+                                            Admin
+                                        </Form.Check.Label>
+                        </Form.Check>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -145,7 +151,7 @@ function User() {
                     variant="info"
                   >
                     Update Profile
-                  </Button>
+                            </Button>
                   <div className="clearfix"></div>
                 </Form>
               </Card.Body>
@@ -157,7 +163,7 @@ function User() {
                 <img
                   alt="..."
                   src={
-                    require("assets/img/photo-1431578500526-4d9613015464.jpeg")
+                    require("assets/img/sanmartino.jpg")
                       .default
                   }
                 ></img>
@@ -168,17 +174,12 @@ function User() {
                     <img
                       alt="..."
                       className="avatar border-gray"
-                      src={require("assets/img/faces/face-3.jpg").default}
+                      src={require("assets/img/placeholder_user.png").default}
                     ></img>
-                    <h5 className="title">Mike Andrew</h5>
+                    <h5 className="title">{__user.name}</h5>
                   </a>
-                  <p className="description">michael24</p>
+                  <p className="description">{__user.username}</p>
                 </div>
-                <p className="description text-center">
-                  "Lamborghini Mercy <br></br>
-                  Your chick she so thirsty <br></br>
-                  I'm in that two seat Lambo"
-                </p>
               </Card.Body>
               <hr></hr>
               <div className="button-container mr-auto ml-auto">
@@ -215,4 +216,4 @@ function User() {
   );
 }
 
-export default User;
+export default UserProfile;
