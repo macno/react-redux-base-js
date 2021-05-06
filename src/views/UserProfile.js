@@ -1,8 +1,9 @@
 import React from "react";
-import { useSelector } from 'react-redux';
-import { selectUser } from '../features/user/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { saveUser, selectUser } from '../features/user/userSlice';
 import moment from 'moment'
 import User from '../model/User'
+import Notify from 'react-notification-alert';
 
 // react-bootstrap components
 import {
@@ -17,8 +18,41 @@ import {
 
 function UserProfile() {
 
+  const dispatch = useDispatch();
   const _user = useSelector(selectUser);
   const __user = new User(_user.data)
+  const notificationAlertRef = React.useRef(null);
+
+  const handleInputChange = (e) => {
+
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    __user[name] = value;
+
+  }
+
+  // React to new status with alerts
+  console.log('UserProfile rendering, status: ' + _user.status)
+  switch(_user.status) {
+    case "saved-ok":
+        var options = {
+          place: 'tc',
+          message: "Profile saved",
+          type: 'success',
+          autoDismiss: 3,
+          icon: 'nc-icon nc-satisfied'
+        };
+        notificationAlertRef.current.notificationAlert(options);
+        break;
+  }
+
+  const submitUser = (e, user) => {
+    e.preventDefault();
+    dispatch(saveUser(user));
+  }
+
   return (
     <>
       <Container fluid>
@@ -29,7 +63,7 @@ function UserProfile() {
                 <Card.Title as="h4">Edit Profile</Card.Title>
               </Card.Header>
               <Card.Body>
-                <Form>
+                <Form onSubmit={(e) => submitUser(e, __user)}>
                   <Row>
                     <Col className="pr-1" md="2">
                       <Form.Group>
@@ -48,8 +82,10 @@ function UserProfile() {
                         <label>Username</label>
                         <Form.Control
                           defaultValue={__user.username}
+                          onChange={e => handleInputChange(e)}
                           placeholder="Username"
                           type="text"
+                          name="username"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -60,8 +96,10 @@ function UserProfile() {
                                         </label>
                         <Form.Control
                           defaultValue={__user.email}
+                          onChange={e => handleInputChange(e)}
                           placeholder="Email"
                           type="email"
+                          name="email"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -72,8 +110,10 @@ function UserProfile() {
                         <label>First Name</label>
                         <Form.Control
                           defaultValue={__user.first_name}
+                          onChange={e => handleInputChange(e)}
                           placeholder="Company"
                           type="text"
+                          name="first_name"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -82,8 +122,10 @@ function UserProfile() {
                         <label>Last Name</label>
                         <Form.Control
                           defaultValue={__user.last_name}
+                          onChange={e => handleInputChange(e)}
                           placeholder="Last Name"
                           type="text"
+                          name="last_name"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -108,7 +150,9 @@ function UserProfile() {
                           <Form.Check.Label>
                             <Form.Check.Input
                               defaultChecked={__user.is_active}
+                              onChange={e => handleInputChange(e)}
                               type="checkbox"
+                              name="is_active"
                             ></Form.Check.Input>
                             <span className="form-check-sign"></span>
                                             Active
@@ -122,7 +166,9 @@ function UserProfile() {
                           <Form.Check.Label>
                             <Form.Check.Input
                               defaultChecked={__user.is_staff}
+                              onChange={e => handleInputChange(e)}
                               type="checkbox"
+                              name="is_staff"
                             ></Form.Check.Input>
                             <span className="form-check-sign"></span>
                                             Staff
@@ -136,7 +182,9 @@ function UserProfile() {
                           <Form.Check.Label>
                             <Form.Check.Input
                               defaultChecked={__user.is_superuser}
+                              onChange={e => handleInputChange(e)}
                               type="checkbox"
+                              name="is_superuser"
                             ></Form.Check.Input>
                             <span className="form-check-sign"></span>
                                             Admin
@@ -212,6 +260,7 @@ function UserProfile() {
           </Col>
         </Row>
       </Container>
+      <Notify ref={notificationAlertRef} />
     </>
   );
 }

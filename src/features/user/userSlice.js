@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchUser } from './userAPI';
+import { fetchUser, sendUser } from './userAPI';
 
 const initialState = {
   data: {
@@ -21,6 +21,19 @@ export const getUser = createAsyncThunk(
     try {
       const response = await fetchUser();
       const data = response.data.data;
+      return data
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+);
+
+export const saveUser = createAsyncThunk(
+  'user/sendUser',
+  async (user) => {
+    try {
+      const response = await sendUser(user);
+      const data = response.data;
       return data
     } catch (error) {
       throw new Error(error.message)
@@ -57,6 +70,19 @@ export const userSlice = createSlice({
       })
       .addCase(getUser.rejected, (state, { payload, error }) => {
         state.status = 'idle';
+        state.lastError = error.message;
+      })
+      .addCase(saveUser.pending, (state) => {
+        state.status = 'saving';
+        state.lastError = '';
+      })
+      .addCase(saveUser.fulfilled, (state, action) => {
+        state.status = 'saved-ok';
+        state.data = action.payload;
+        state.lastError = '';
+      })
+      .addCase(saveUser.rejected, (state, { payload, error }) => {
+        state.status = 'saved-err';
         state.lastError = error.message;
       });
   },
