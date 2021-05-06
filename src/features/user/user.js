@@ -20,7 +20,7 @@ export function UserComponent() {
         message: currentUser.lastError,
         type: 'danger',
         autoDismiss: 5,
-        icon: null
+        icon: 'nc-icon nc-alien-33'
       };
       notificationAlertRef.current.notificationAlert(options);
       console.error(options.message)
