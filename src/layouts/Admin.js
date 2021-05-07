@@ -17,16 +17,14 @@
 */
 import React from "react";
 import { useLocation, Route, Switch } from "react-router-dom";
-
 import AdminNavbar from "components/Navbars/AdminNavbar";
 import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
-
 import routes from "routes.js";
-
 import sidebarImage from "assets/img/sidebar-3.jpg";
 import { getUser } from '../features/user/userSlice';
 import { useDispatch } from 'react-redux';
+import ModalLoader from "features/modalLoader/modalLoader";
 
 function Admin() {
   const [image, setImage] = React.useState(sidebarImage);
@@ -71,11 +69,13 @@ function Admin() {
       <div className="wrapper">
         <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
         <div className="main-panel" ref={mainPanel}>
-          <AdminNavbar />
-          <div className="content">
-            <Switch>{getRoutes(routes)}</Switch>
-          </div>
-          <Footer />
+          <ModalLoader>
+            <AdminNavbar />
+            <div className="content">
+              <Switch>{getRoutes(routes)}</Switch>
+            </div>
+            <Footer />
+          </ModalLoader>
         </div>
       </div>
     </>
