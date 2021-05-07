@@ -29,11 +29,7 @@ export function UserComponent() {
 
   return (
     <>
-      <NavLink
-        className="m-0"
-        to={"/user"}
-      ><span className="no-icon">{_user.name}</span>
-      </NavLink>
+      <span className="no-icon">{_user.name}</span>
       <Notify ref={notificationAlertRef} />
     </>
   );
