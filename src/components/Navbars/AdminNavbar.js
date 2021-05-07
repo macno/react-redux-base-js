@@ -18,7 +18,6 @@
 import React, { Component } from "react";
 import { useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, Dropdown, Button } from "react-bootstrap";
-
 import routes from "routes.js";
 import { UserComponent } from "features/user/user";
 
@@ -68,14 +67,14 @@ function Header() {
           <span className="navbar-toggler-bar burger-lines"></span>
           <span className="navbar-toggler-bar burger-lines"></span>
         </Navbar.Toggle>
-        <Navbar.Collapse id="basic-navbar-nav">
+                    <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="nav mr-auto" navbar>
           </Nav>
           <Nav className="ml-auto" navbar>
           <Nav.Item>
               <Nav.Link
                 className="m-0"
-                href="/accounts/logout"
+                href="/user"
               >
             <UserComponent />
               </Nav.Link>

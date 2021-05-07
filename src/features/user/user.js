@@ -1,6 +1,4 @@
 import React, { useRef } from 'react';
-import { Nav } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { selectUser } from './userSlice';
 import Notify from 'react-notification-alert';
