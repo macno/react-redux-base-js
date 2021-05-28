@@ -139,7 +139,7 @@ function UserProfile() {
                         <Form.Control
                           defaultValue={__user.first_name}
                           onChange={e => handleInputChange(e)}
-                          placeholder="Company"
+                          placeholder="First Name"
                           type="text"
                           name="first_name"
                         ></Form.Control>
