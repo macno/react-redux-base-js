@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+
+  sample-prod:
+    container_name: sample-prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:80'
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=http_network"
+      - "traefik.http.routers.django.rule=Host(`${FQDN}`)"
+      - "traefik.http.routers.django.entrypoints=websecure"
+      - "traefik.http.services.django.loadbalancer.server.port=3000"
